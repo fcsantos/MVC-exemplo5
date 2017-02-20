@@ -1,0 +1,44 @@
+﻿@model IEnumerable<CrudSimpleModalBootstrap.Models.AutorViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <button class="btn btn-primary create">Novo</button>
+</p>
+<table class="table" id="tblAutor">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                <button class="btn btn-primary details" data-id="@item.Id">Detalhe</button>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+
+</div>
+
