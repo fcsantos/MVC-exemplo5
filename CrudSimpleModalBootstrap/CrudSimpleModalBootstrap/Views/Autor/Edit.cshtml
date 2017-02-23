@@ -1,0 +1,30 @@
+﻿@model CrudSimpleModalBootstrap.Models.AutorViewModel
+
+<h2>Editar Autor</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control txtNome" } })
+                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" data-id="@Model.Id" data-url="@Url.Action("Edit", "Autor")" class="btn btn-primary EditarAutor" />
+                @*<button class="btn btn-primary" onclick="@Url.Action("AutorDetalhePartial","Autor", new { id = Model.Id })">Voltar</button>*@
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Scripts/Scripts.js"></script>

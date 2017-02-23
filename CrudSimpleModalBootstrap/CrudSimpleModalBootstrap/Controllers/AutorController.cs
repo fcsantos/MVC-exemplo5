@@ -3,7 +3,9 @@ using CrudSimpleModalBootstrap.Models;
 using Projeto.Domain;
 using Projeto.Infra.DataContext;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 
 namespace CrudSimpleModalBootstrap.Controllers
@@ -63,24 +65,54 @@ namespace CrudSimpleModalBootstrap.Controllers
         }
 
         // GET: Autor/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var autor = db.Autores.Find(id);
+            var model = Mapper.Map<Autor, AutorViewModel>(autor);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView(model);
         }
+
+        public ActionResult AutorEditPartial(int id)
+        {
+            var model = new AutorViewModel();
+            model.Id = id;
+            return PartialView("_AutorEditar", model);
+        }
+
 
         // POST: Autor/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int? id, AutorViewModel model)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var modelAutor = new AutorViewModel();
+            modelAutor.Id = id.Value;
+
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    var entityOld = db.Autores.Find(model.Id);
+                    var modelUpdate = Mapper.Map<AutorViewModel, Autor>(model, entityOld);
+                    db.Entry(modelUpdate).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                return PartialView("_AutorDetalhe", modelAutor);
             }
             catch
             {
-                return View();
+                return PartialView("_AutorDetalhe", modelAutor);
             }
         }
 
