@@ -45,17 +45,30 @@ namespace CrudSimpleModalBootstrap.Controllers
         // GET: Autor/Create
         public ActionResult Create()
         {
-            return View();
+            return PartialView(new AutorViewModel());
+        }
+
+        public ActionResult AutorInserirPartial()
+        {
+            return PartialView("_AutorInserir", new AutorViewModel());
         }
 
         // POST: Autor/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(AutorViewModel model)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                var autor = Mapper.Map<AutorViewModel, Autor>(model);
+                if (autor == null)
+                {
+                    return HttpNotFound();
+                }
+                if (true)
+                {
+                    db.Autores.Add(autor);
+                    db.SaveChanges();
+                }                
                 return RedirectToAction("Index");
             }
             catch

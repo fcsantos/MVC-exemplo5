@@ -199,6 +199,8 @@
     <Content Include="Views\Autor\Detalhe.cshtml" />
     <Content Include="Views\Autor\_AutorEditar.cshtml" />
     <Content Include="Views\Autor\Edit.cshtml" />
+    <Content Include="Views\Autor\_AutorInserir.cshtml" />
+    <Content Include="Views\Autor\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Livro\" />

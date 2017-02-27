@@ -1,16 +1,13 @@
 ﻿@model CrudSimpleModalBootstrap.Models.AutorViewModel
 
-<h2>Editar Autor</h2>
-
-@using (Html.BeginForm())
+@using (Ajax.BeginForm("Create", "Autor", new AjaxOptions{ HttpMethod="POST", OnSuccess="Success", OnFailure="Failure" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
+        <h2>Inclusão do Autor</h2>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
         <div class="form-group">
             @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -21,8 +18,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Salvar" data-id="@Model.Id" data-url="@Url.Action("Edit", "Autor")" class="btn btn-primary EditarAutor" />
-                @*<button class="btn btn-default VoltarAutor" data-id="@Model.Id" data-dissmiss="modal">Voltar</button>*@
+                <input type="submit" value="Salvar" class="btn btn-primary" />
             </div>
         </div>
     </div>
