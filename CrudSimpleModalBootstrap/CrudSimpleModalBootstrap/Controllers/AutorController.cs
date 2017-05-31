@@ -100,7 +100,6 @@ namespace CrudSimpleModalBootstrap.Controllers
             return PartialView("_AutorEditar", model);
         }
 
-
         // POST: Autor/Edit/5
         [HttpPost]
         public ActionResult Edit(int? id, AutorViewModel model)
@@ -142,7 +141,6 @@ namespace CrudSimpleModalBootstrap.Controllers
             try
             {
                 // TODO: Add delete logic here
-
                 return RedirectToAction("Index");
             }
             catch
